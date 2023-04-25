@@ -18,7 +18,7 @@
 
 ## Add the application 
 
-Once we created the app we need add it to the setting.py on the variable INSTALLED_APPS
+Una vez creada la aplicación es necesario añadirla dentro del archivo de settings.py en la variable de INSTALLED_APPS.
 
 Ejemplo: 
 
@@ -35,8 +35,9 @@ Ejemplo:
         'home',
     ]
 
-Once we created the view just to vizualice something we use a django.http HttpResponse yo show a clasic messages
-'Hello, World!'
+Se utilizo django.http HttpReponse para crear el clásico mensaje de **'Hello, World!'**
+
+
 
 for this clase we will add the view on the urls.py
 
@@ -44,7 +45,7 @@ for this clase we will add the view on the urls.py
 
 ## TEMPLATES
 
-Como buenas practicas es recomendado crear dentro de tu aplicacion la carpeta templates y dentro de esta carpeta otro directorio llamado igual que tu aplicacion
+Como buenas practicas es recomendado crear dentro de tu aplicación la carpeta templates y dentro de esta carpeta otro directorio llamado igual que tu aplicación
 
 Por ejemplo:
 
@@ -55,9 +56,9 @@ Para esta clase se utilizo el archivo llamado welcome.html y se agrego dentro de
 
 ## Modularizacion
 
-Se creara un archivo urls.py por cada aplicacion que se cree de esta manera se manejan las rutas de manera mas sensilla
+Se creara un archivo urls.py por cada aplicación que se cree de esta manera se manejan las rutas de manera mas sencilla
 
-dentro de nuestro main app en este caso smartnotes se inclura la libreria include y se mandara llamar de como string
+dentro de nuestro main app en este caso smartnotes se incluirá la librería include y se mandara llamar de como string
 
 Ejemplo:
 
