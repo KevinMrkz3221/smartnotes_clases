@@ -1,4 +1,4 @@
-# Clase 01
+# Clase 01 - Starting you Django Project
 
 En esta clase se vieron los temas:
 
