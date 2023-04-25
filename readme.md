@@ -1,17 +1,15 @@
-Clase 01
+# Clase 01
 
-En esta clase se tomaron los temas
+En esta clase se vieron los temas:
 
 * Como crear un nuevo proyecto
 * Como correr el servidor
-* Como crear una aplicacion
-* Como anadir una aplicacion
+* Como crear una aplicación
+* Como añadir una aplicación
 * Templates
-* Modularizacion
+* Popularización
 
 
-
-# Class_1
 
 ## How to create a project
 
