@@ -3,7 +3,7 @@
 En esta clase se vieron los temas:
 * **Creating a dynamic template.**
 * **Display content of a single note.**
-
+* **Error Handling.**
 ***
 ## Creating a dynamic template.
 
@@ -29,7 +29,7 @@ Como por ejemplo, implementar la estructura FOR:
     </body>
 
     </html>
-
+***
 ## Display content of a single note.
 
 En esta parte, mostraremos el detalle de una nota sola. Para esto es necesario crear su vista. Esta parte es exactamente igual a cualquier otra vista con la diferencia de que vamos a acceder al elemento por el private key del elemento
@@ -49,3 +49,7 @@ Es necesario agregar también al archivo de urls.py de la aplicación. Ejemplo:
     ]
 
 Donde **path('notes/<<int:pk>>', views.detail),**  int pk significa que recibirá un entero como parámetro el cual sera el private key.
+
+***
+## Error Handling.
+Abras notado que al intentar dar un valor muy grande o una nota que ni siquiera existe nos da un error, es una buena practica intentar obtener estos errores y mostrar pantallas alternativas. En este caso se utilizo try/Except para levantar el error con una plantilla predeterminada por Django, pero se recomienda hacer la plantilla manual para mostrar un error personalizado que valla con el diseño de la pagina.
