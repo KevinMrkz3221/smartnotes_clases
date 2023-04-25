@@ -2,14 +2,13 @@
 
 En esta clase se vieron los temas:
 
-1. **Crear usuarios en Django**.
+* **Crear usuarios en Django**.
 > * Django Admin Interface.
 > * Migrations.
 > * Create Super User.
-2. **Django Admin**.
-3. **User Authentication**.
-> * 
-> *
+* **Django Admin**.
+* **User Authentication**.
+
 
 
 ***
