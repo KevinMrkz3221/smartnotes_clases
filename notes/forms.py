@@ -10,6 +10,15 @@ class NotesForm(forms.ModelForm):
         model = Notes
         fields = ('title', 'text')
 
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'text': forms.Textarea(attrs={'class' : 'form-control', 'rows': '15'})
+        }
+
+        labels = {
+            'text': 'Write your thoughts here:'
+        }
+
     def clean_title(self):
         title = self.cleaned_data['title']
 
