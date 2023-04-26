@@ -1,28 +1,61 @@
-# Clase 08 - Create View.
+# Clase 08 - Form.py.
 
 En esta clase se vieron los temas:
-* **Create, C of CRUD**
+* **Forms.py implementation.**
+* **If Statement.**
 
 
 
 ***
-## Create, C of CRUD
-Como cualquier sistema en veces es necesario crear formularios para crear items.
+## Forms.py implementation
+Para hacer uso de este herramienta es necesario crear el archivo forms.py dentro de nuestra aplicacion o modulo a trabajar.
 
+Django utiliza unas clases u objetos llamados formas. Las cuales se importan de la siguiente manera:
 
-Django tiene la funcion de implementar formas segun los modelos que estamos utilizando para crear objetos y tiene una vista en especifico llamada **CreateView** la cual se importa con la siguiente linea.
+    from django import forms
 
-    from django.views.generic import CreateView
+Este es un ejemplo de la implementación de forms dentro de nuestro proyecto.
 
-Una vez importada la clase es necesario crear nuestra clase de vista en este caso se implementara con las notas como, NotesCreateView indicando que sera la vista de nuestro formulario.
+forms.py
 
-Ejemplo:
+    from django import forms
+    from django.core.exceptions import ValidationError
+
+    from .models import Notes
+
+    class NotesForm(forms.ModelForm):
+        class Meta:
+            model = Notes
+            fields = ('title', 'text')
+
+        def clean_title(self):
+            title = self.cleaned_data['title']
+
+            if 'Django' not in title:
+                raise ValidationError('We only accept notes about Django!')
+            return title
+
+Esta clase necesita un modelo para funcionar asi como los campos(fields) que sera necesario pedir en la forma.
+
+Asi mismo dentro de la clase podemos agregar validaciones para asi mostrar los mensajes de manera personalizada.
+
+Views.py
 
     class NotesCreateView(CreateView):
         model = Notes
-        fields = ['title', 'text']
+        form_class = NotesForm
         success_url = '/smart/notes'
 
+Podrás notar que el campo de fields se reemplazo por form_class haciendo referencia a la forma que se creo
 
-Esta clase recibe como parámetros el modelo que se va a utilizar, los campos a agregar, la forma a utilizar y hacia donde queremos que se redirija la vista en caso de que se crea de manera exitosa el objeto.
+***
+## If Statement.
+Para controlar el flujo de nuestras vistas se puede utilizar el comando if dentro de nuestro html, de esta forma podemos agregar bloques en caso de que surgir algún error o excepción.
 
+Ejemplo:
+
+    {% if form.errors %}
+    <div class="alert alert-danger my-5">
+        {{ form.errors.title.as_text }}
+    </div>
+    {% endif %}
