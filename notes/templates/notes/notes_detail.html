@@ -1,15 +1,10 @@
-<html>
-    <head>
-        <title>Note detail</title>
-    </head>
-<body>
-    <h1>
-        {{note.title}}
-    </h1>
+{% extends "base.html" %}
+{% block content %}
 
-    <p>
-        {{note.text}}
-    </p>
-</body>
+<div class="border round">
+    <h1 class="my-5">{{note.title}}</h1>
 
-</html>
+    <p>{{note.text}}</p>
+</div>
+
+{% endblock %}
