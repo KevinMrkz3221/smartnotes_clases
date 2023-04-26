@@ -1,4 +1,4 @@
-# Clase 05 - Building a Robust Front End in Django.
+# Clase 06 - Building a Robust Front End in Django. - Part 1
 
 En esta clase se vieron los temas:
 * **Static Files.**
@@ -30,4 +30,6 @@ Dentro del folder **"static"** se creara el siguiente archivo. **_static/css/sty
         color: red;
     }
 
-Una vez echo esto, tenemos que mandar a llamar nuestro archivo de estilo dentro de nuestro html
+Una vez hecho esto, tenemos que mandar a llamar nuestro archivo de estilo dentro de nuestro html de la siguiente forma:
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
