@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome to Smart Notes!</h1>
+        <p class="h-100 p-5 bg-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, 
+          quisquam exercitationem? Minima ipsum ullam aut sed magni? Voluptates placeat nemo deleniti 
+          exercitationem ipsum sit numquam cum. Impedit quod, pariatur fuga ipsum quasi deleniti. Odio 
+          autem sapiente vitae vel voluptates eveniet.</p>
+        <a class="btn btn-primary btn-lg" type="button" href="{% url 'register' %}">Create Account</a>
+    </div>
+</div>
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h2>Change the background</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis aliquam odit obcaecati 
+          ducimus illo nisi, sint expedita nulla, facere aliquid amet reprehenderit saepe repellat? Quos 
+          expedita dolore quam possimus nobis.</p>
+        <button class="btn btn-outline-light" type="button">Examples</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-light border rounded-3">
+        <h2>Add borders</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate quam enim saepe eaque nulla 
+          sunt eum, placeat quaerat libero, numquam repellat temporibus reprehenderit. Molestiae, fuga dolore. 
+          Dignissimos non doloribus minus reprehenderit quod ut ea eaque!</p>
+        <button class="btn btn-outline-secondary" type="button">None</button>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

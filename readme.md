@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+# Clase 13 - Login, Logout, Sign Up & Validations
+
+En esta clase se vieron los temas:
+
+* **Adding Login & Logout pages**
+* **Adding Sign Up Page**
+* **Validations.**
+
+***
+
+=======
 # Smart Notes
 Smart Notes es una aplicación web que te permite almacenar y gestionar notas de manera eficiente. La aplicación se ha desarrollado utilizando Python, HTML, CSS, Bootstrap y el framework de Django, con una base de datos SQLite para almacenar las notas.
 
@@ -37,3 +49,4 @@ Si deseas contribuir al desarrollo de Smart Notes, no dudes en enviar una solici
 
 ***
 ## Licencia
+>>>>>>> main
