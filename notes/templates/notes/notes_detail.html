@@ -11,3 +11,21 @@
 <a href="{% url 'notes.update' pk=note.id %}" class="btn btn-primary my-5">Edit</a>
 
 {% endblock %}
+
+{% if form.username.errors %}
+<div class="alert alert-danger text-center">
+    {{form.username.errors}}
+</div>
+{% endif %}
+
+{% if form.password2.errors %}
+<div class="alert alert-danger text-center">
+    {{form.password2.errors}}
+</div>
+{% endif %}
+
+{% if form.errors.email %}
+<div class="alert alert-danger text-center">
+    {{form.errors.email}}
+</div>
+{% endif %}
