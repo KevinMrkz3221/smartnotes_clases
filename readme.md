@@ -37,4 +37,3 @@ Si deseas contribuir al desarrollo de Smart Notes, no dudes en enviar una solici
 
 ***
 ## Licencia
-Smart Notes está disponible bajo la licencia MIT. Siéntete libre de utilizar, modificar y distribuir este software.
