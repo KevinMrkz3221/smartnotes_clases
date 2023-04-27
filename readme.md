@@ -1,60 +1,76 @@
-# Clase 08 - Working with existing data - CRUD - RUD.
+# Clase 12 - Using Django to Store and Display User-Specific Data
 
 En esta clase se vieron los temas:
-* **U In the CRUD.**
-* **D in the CRUD.**
 
-
-
-
-***
-## U in the CRUD.
-Para hacer un update en nuestra aplicación existe una vista llama UpdateView, la cual puedes importar a tu archivo de vistas de la siguiente forma:
-
-    from django.views.generic import UpdateView
-
-Esta vista recibe como parámetros el modelo al cual se le va a estar haciendo el update, recibe una forma, y el success_url.
-
-Ejemplo:
-
-    class NotesUpdateView(UpdateView):
-        model = Notes
-        form_class = NotesForm
-        success_url='/smart/notes'
-
-De igual forma es necesario agregar su url en el archivo urls.py para que pueda ser utilizado de forma exitosa.
-
-Ejemplo:
-
-    path('notes/<int:pk>/edit', views.NotesUpdateView.as_view(), name='notes.update'),
+* **ForeignKey: How Models relate to each other.**
+* **Displaying only the logged user data.**
+* **Adding a new note after ForeignKey.**
 
 ***
-## D in the CRUD.
-Para eliminar algun elemento es necesario importar lo que es el DeleteView, a diferencia de otros esta clase la puedes importar de la siguiente forma:
+## **ForeignKey: How Models relate to each other.**
 
-    from django.views.generic.edit import DeleteView
+Cuando creas tu propio modelo existe la posibilidad de hacer relaciones entre tablas mediante un ForeignKey. Esto tiene que ver mas con el diseño de la base de datos, es recomendado generar bases de datos que se encuentren plenamente normalizadas para que de esta forma nuestra aplicación web funcione de manera rápida.
 
-Esta clase necesita como parámetros un modelo y el success_url para funcionar.
+Para agregar un ForeignKey a nuestro modelo unicamente es necesario añadir las siguientes lineas de código:
 
-    class NotesDeleteView(DeleteView):
+    from django.contrib.auth.models import User
+
+Y dentro de nuestro modelo
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
+
+De esta forma le estamos diciendo que se va a traer específicamente las notas del usuario en uso.
+
+Una vez hechos estos cambios en nuestro modelo, es necesario generar las migraciones con el comando:
+
+    python manage.py makemigrations
+
+Para después utilizar:
+
+    python manage.py migrate.
+
+Al realizar estos campos Django se dará cuenta que muy probablemente tienes elementos en este caso notas creadas y que sera necesario proporcionar un id de algún usuario para agregarlo por defecto en todos los registros para que asi la migración se haga de manera efectiva. También te dará la opción de agregar una a una el id a cada nota, por esta cuestión se recomienda utilizar la primera opción.
+
+**Nota:**
+Si al momento de hacer la migración proporcionas un id que no existe, la migración no sera exitosa, asegúrate de generar la migración con un id existente para que no tengas ningún inconveniente.
+
+***
+## **Displaying only the logged user data.**
+Para mostrar unicamente la información del usuario en cuestión tenemos que devolvernos a la Clase_06, donde se explico como implementar LoginRequiredMixin.
+
+Una vez aplicado este paso a todas nuestras vistas, se necesitara modificar uno de los métodos que heredamos de la clase ListView, mas en especifico, el método **get_queryset**.
+
+Este método se encarga de hacer el query que nos muestra toda la lista de los elementos que tenemos dentro de nuestra base de datos, el problema es que no hace la distincion entre usuarios.
+
+Unicamente se necesita agregar la siguiente linea de código en la vista.
+
+    def get_queryset(self):
+        return self.request.user.notes.all()
+
+Una vez hecho estos pasos nuestra vista tiene que quedar de la siguiente manera.
+
+    class NotesView(LoginRequiredMixin, ListView):
         model = Notes
-        success_url='/smart/notes'
+        context_object_name = "notes"
+        template_name = "notes/notes_list.html"
+        login_url = '/admin'
 
-Esta forma a diferencia de UpdateView tendrá que tener su propio archivo html para poder hacer el borrado del elemento a utilizar.
+        def get_queryset(self):
+            return self.request.user.notes.all()
 
-Ejemplo:
+Una vez realizados los pasos se podrán visualizar las notas de el usuario en cuestión.
 
-    {% extends "base.html" %}
+***
+## **Adding a new note after ForeignKey.**
 
-    {% block content %}
-    <form method="POST" class="form-control">{% csrf_token %}
-        <p>Are you sure you want to delete "{{notes.title}}"? </p>
-        <p class="form-control alert alert-danger">This action can't be undone</p>
+Al cambiar la estructura de nuestra tabla, sera necesario agregar un usuario al objeto que estaremos intentando crear, dado que si intentamos crear una nueva nota sin pasarle el parámetro de user id, esto nos arrojara un error que no nos permitirá crear la nota.
 
-        <a href="{% url 'notes.list' %}" class="btn btn-secondary">cancel</a>
-        <input type="submit" class="btn btn-danger" value="Confirm"/>
-    </form>
+Al igual que en el tema anterior sera necesario modificar una de las funciones de nuestra clase NotesCreateView, mas en especifico el método **form_valid** y se hace de la siguente forma.
 
-    {% endblock %}
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
-Este archivo se nombro con el nombre notes_confirm_delete.html ya que es el archivo que Django busca por defecto al utilizar esta clase. En caso de que quieras utilizar cualquier otro template puedes mandar a llamar el atributo template_name e igualarlo a la ruta donde se encuentra el template a utilizar.
+Esto lo que ara es pasar el id o ForeignKey del usuario en cuestión, asi completando lo que es el formulario entero para que se pueda guardar en nuestra tabla.
