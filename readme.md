@@ -74,3 +74,7 @@ Al igual que en el tema anterior sera necesario modificar una de las funciones d
         return HttpResponseRedirect(self.get_success_url())
 
 Esto lo que ara es pasar el id o ForeignKey del usuario en cuestión, asi completando lo que es el formulario entero para que se pueda guardar en nuestra tabla.
+
+## Explicación de lo sucedido:  
+
+![Flujo de orm](/static/images/exp.png)
